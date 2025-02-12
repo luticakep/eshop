@@ -62,49 +62,53 @@ class ProductRepositoryTest {
     }
 
     @Test
-    void testDeleteProduct() {
-        Product product3 = new Product();
-        product3.setProductId("eb558e9f-1c39-1205-8860-71af6af63bd6");
-        product3.setProductName("Es Krim Karambol");
-        product3.setProductQuantity(100);
-        productRepository.create(product3);
+    void testEditProduct() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-1205-8860-71af6af63bd6");
+        product.setProductName("Old");
+        product.setProductQuantity(100);
+        productRepository.create(product);
 
-        assertNotNull(productRepository.findById("eb558e9f-1c39-1205-8860-71af6af63bd6"));
-        productRepository.delete("eb558e9f-1c39-1205-8860-71af6af63bd6");
-        assertNull(productRepository.findById("eb558e9f-1c39-1205-8860-71af6af63bd6"));
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("eb558e9f-1c39-1205-8860-71af6af63bd6");
+        updatedProduct.setProductName("New");
+        updatedProduct.setProductQuantity(10);
+
+        Product result = productRepository.edit(updatedProduct);
+        assertNotNull(result);
+        assertEquals("New", result.getProductName());
+        assertEquals(10, result.getProductQuantity());
+
+        Product storedProduct = productRepository.findById("eb558e9f-1c39-1205-8860-71af6af63bd6");
+        assertNotNull(storedProduct);
+        assertEquals("New", storedProduct.getProductName());
+        assertEquals(10, storedProduct.getProductQuantity());
     }
     @Test
-    void testDeleteProductIfEmpty() {
+    void testEditProductNotFound() {
+        Product nonExistingProduct = new Product();
+        nonExistingProduct.setProductId("aaa58e9f-1c39-460e-8860-71af6af63kms");
+        nonExistingProduct.setProductName("None");
+        nonExistingProduct.setProductQuantity(10);
+
+        Product result = productRepository.edit(nonExistingProduct);
+        assertNull(result);
+    }
+    @Test
+    void testDeleteProductSuccess() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-4687-8860-71af6af63bl9");
+        product.setProductName("Teh");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        assertNotNull(productRepository.findById("eb558e9f-1c39-4687-8860-71af6af63bl9"));
+        productRepository.delete("eb558e9f-1c39-4687-8860-71af6af63bl9");
+        assertNull(productRepository.findById("eb558e9f-1c39-4687-8860-71af6af63bl9"));
+    }
+    @Test
+    void testDeleteProductNotFound() {
         productRepository.delete("1234");
         assertNull(productRepository.findById("1234"));
-    }
-
-    @Test
-    void testEditProduct() {
-        Product product4 = new Product();
-        product4.setProductId("eb558e9f-1c39-460e-3321-71af6af63bd6");
-        product4.setProductName("Kucing");
-        product4.setProductQuantity(10);
-        productRepository.create(product4);
-
-        Product updated =  new Product();
-        updated.setProductQuantity(20);
-        productRepository.edit(updated);
-
-        Product editedProduct = productRepository.findById("eb558e9f-1c39-460e-3321-71af6af63bd6");
-        assertNotNull(editedProduct);
-        assertEquals(20, editedProduct.getProductQuantity());
-    }
-    @Test
-    void testEditProductIfEmpty() {
-        Product product6 = new Product();
-        product6.setProductId("3se58e9f-1c39-460e-3321-71af6af63bd6");
-        product6.setProductName("Kucing");
-        product6.setProductQuantity(10);
-
-        productRepository.create(product6);
-        Product updated =  productRepository.edit(product6);
-
-        assertNull(updated);
     }
 }

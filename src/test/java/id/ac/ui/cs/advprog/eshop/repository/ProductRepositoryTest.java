@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Iterator;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +19,55 @@ class ProductRepositoryTest {
     @BeforeEach
     void setUp() {
     }
+    @Test
+    void testCreateProductWithNoId() {
+        Product product = new Product();
+        Product createdProduct = productRepository.create(product);
+
+        assertNotNull(createdProduct.getProductId());
+        assertFalse(createdProduct.getProductId().isEmpty());
+    }
+
+    @Test
+    void testFindByIdNotFound() {
+        Product foundProduct = productRepository.findById("non-existent-id");
+        assertNull(foundProduct);
+    }
+    @Test
+    void testFindById() {
+        Product product = new Product();
+        String productId = UUID.randomUUID().toString();
+        product.setProductId(productId);
+        productRepository.create(product);
+
+        Product foundProduct = productRepository.findById(productId);
+        assertNotNull(foundProduct);
+        assertEquals(productId, foundProduct.getProductId());
+        assertEquals(product.getProductName(), foundProduct.getProductName()); // Ensure name matches
+        assertEquals(product.getProductQuantity(), foundProduct.getProductQuantity()); // Ensure quantity matches
+    }
+
+    @Test
+    void testFindByIdWithMultipleProducts() {
+        Product product1 = new Product();
+        product1.setProductId("product-1");
+        product1.setProductName("Product One");
+        product1.setProductQuantity(10);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductId("product-2");
+        product2.setProductName("Product Two");
+        product2.setProductQuantity(20);
+        productRepository.create(product2);
+
+        Product foundProduct = productRepository.findById("product-2");
+        assertNotNull(foundProduct);
+        assertEquals("product-2", foundProduct.getProductId());
+        assertEquals("Product Two", foundProduct.getProductName());
+        assertEquals(20, foundProduct.getProductQuantity());
+    }
+
     @Test
     void testCreateAndFind() {
         Product product = new Product();

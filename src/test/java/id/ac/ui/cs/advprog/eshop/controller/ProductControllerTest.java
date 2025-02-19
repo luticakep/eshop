@@ -17,7 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-public class ProductControllerTest {
+class ProductControllerTest {
 
     @Mock
     private ProductService service;
@@ -76,13 +76,14 @@ public class ProductControllerTest {
         assertEquals("redirect:/product/list", viewName);
     }
 
-//    @Test
-//    void editProduct() {
-//        Product product = new Product();
-//        String viewName = controller.editProduct(id, product);
-//        verify(service).edit(id, product);
-//        assertEquals("redirect:/product/list", viewName);
-//    }
+    @Test
+    void editProduct() {
+        Product product = new Product();
+        String viewName = controller.editProduct("123", product);
+        verify(service).edit("123", product);
+        assertEquals("redirect:/product/list", viewName);
+
+    }
 
     @Test
     void deleteProduct() {

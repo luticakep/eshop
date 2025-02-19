@@ -34,15 +34,13 @@ public class ProductRepository {
         return null;
     }
 
-    public Product edit(Product updatedProduct) {
-        for (Product product : productData) {
-            if (product.getProductId().equals(updatedProduct.getProductId())) {
-                product.setProductName(updatedProduct.getProductName());
-                product.setProductQuantity(updatedProduct.getProductQuantity());
-                return product;  // Return the updated product
-            }
+    public Product edit(String id, Product updatedProduct) {
+        Product product = findById(id);
+        if (product != null) {
+            product.setProductName(updatedProduct.getProductName());
+            product.setProductQuantity(updatedProduct.getProductQuantity());
         }
-        return null;  // If product not found
+        return product;
     }
 
     public void delete(String id) {

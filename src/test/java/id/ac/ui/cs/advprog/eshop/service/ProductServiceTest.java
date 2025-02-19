@@ -94,7 +94,7 @@ public class ProductServiceTest {
         updatedProduct.setProductName("second");
         updatedProduct.setProductQuantity(20);
 
-        Product result = productService.edit(updatedProduct);
+        Product result = productService.edit("p1", updatedProduct);
         assertNotNull(result);
         assertEquals("second", result.getProductName());
         assertEquals(20, result.getProductQuantity());

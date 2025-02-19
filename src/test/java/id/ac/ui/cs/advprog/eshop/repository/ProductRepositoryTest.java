@@ -64,25 +64,21 @@ class ProductRepositoryTest {
     @Test
     void testEditProduct() {
         Product product = new Product();
-        product.setProductId("eb558e9f-1c39-1205-8860-71af6af63bd6");
-        product.setProductName("Old");
-        product.setProductQuantity(100);
+        product.setProductId("eb558e9f-0000-460e-8860-71af6af63777");
+        product.setProductName("Old Name");
+        product.setProductQuantity(50);
+
         productRepository.create(product);
 
         Product updatedProduct = new Product();
-        updatedProduct.setProductId("eb558e9f-1c39-1205-8860-71af6af63bd6");
-        updatedProduct.setProductName("New");
-        updatedProduct.setProductQuantity(10);
+        updatedProduct.setProductName("Imud Product");
+        updatedProduct.setProductQuantity(75);
 
-        Product result = productRepository.edit(updatedProduct);
-        assertNotNull(result);
-        assertEquals("New", result.getProductName());
-        assertEquals(10, result.getProductQuantity());
+        productRepository.edit("eb558e9f-0000-460e-8860-71af6af63777", updatedProduct);
+        Product modifiedProduct = productRepository.findById("eb558e9f-0000-460e-8860-71af6af63777");
 
-        Product storedProduct = productRepository.findById("eb558e9f-1c39-1205-8860-71af6af63bd6");
-        assertNotNull(storedProduct);
-        assertEquals("New", storedProduct.getProductName());
-        assertEquals(10, storedProduct.getProductQuantity());
+        assertEquals("Imud Product", modifiedProduct.getProductName());
+        assertEquals(75, modifiedProduct.getProductQuantity());
     }
     @Test
     void testEditProductNotFound() {
@@ -91,7 +87,7 @@ class ProductRepositoryTest {
         nonExistingProduct.setProductName("None");
         nonExistingProduct.setProductQuantity(10);
 
-        Product result = productRepository.edit(nonExistingProduct);
+        Product result = productRepository.edit("aaa58e9f-1c39-460e-8860-71af6af63kms", nonExistingProduct);
         assertNull(result);
     }
     @Test

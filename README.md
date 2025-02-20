@@ -1,6 +1,7 @@
 # Kayla Soraya Djakaria - 2306256381
 
-## Module 1
+<details>
+<summary>Module 1</summary>
 ### Reflection 1
 I applied several clean code principles in my project, such as meaningful method names and 
 separation of concerns to improve maintainability and readability.
@@ -27,3 +28,16 @@ If a new functional test is created using same setup and variables, then this wi
 repeated setup code. One way to improve this is by creating a parent class to store the setup. Also, instead of writing same code in multiple
 places, we can use JUnit5's `@ParameterizedTest` to reuse test logic. This allows testing multiple products in one test case, reducing 
 redundant test methods.
+</details>
+
+<details>
+<summary>Module 2</summary>
+- Unused imports can slow down the compilations: remove unused imports
+- When public modifiers is not needed, it will expose implementation details: remove public modifiers when it's not needed
+- Declaring code exception might reduce code clarity: remove exception declarations that are not needed
+
+My current implementation meets the definition of Continuous Integration and Continuous Deployment. 
+The `ci.yml` workflow automatically triggers builds and runs unit and integration tests on each commit, ensuring that all changes are verified before merging. 
+The `deploy.yml` workflow automates the deployment process to Koyeb, allowing tested code to be pushed to production without manual intervention. 
+Additionally, `sonarcloud.yml` integrates static code analysis using SonarCloud to detect bugs, vulnerabilities, and code smells to improve code quality and security.
+</details>

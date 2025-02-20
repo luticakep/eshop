@@ -12,7 +12,6 @@ import java.util.Iterator;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     private ProductRepository productRepository;
 
     @Override

@@ -77,6 +77,9 @@ tasks.test {
 
 tasks.jacocoTestReport {
 	dependsOn(tasks.test)
+	reports {
+		xml.required = true
+	}
 }
 
 sonar {
@@ -84,5 +87,6 @@ sonar {
 		property("sonar.projectKey", "luticakep_eshop")
 		property("sonar.organization", "luticakep")
 		property("sonar.host.url", "https://sonarcloud.io")
+		property("sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
 	}
 }

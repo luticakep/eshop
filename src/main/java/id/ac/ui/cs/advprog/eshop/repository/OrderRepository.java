@@ -11,9 +11,37 @@ public class OrderRepository {
 
     private List<Order> orderData = new ArrayList<>();
 
-    public Order save(Order order) { return null; }
+    public Order save(Order order) {
+        int i = 0;
+        for (Order savedOrder : orderData) {
+            if (savedOrder.getId().equals(order.getId())) {
+                orderData.remove(i);
+                orderData.add(i, order);
+                return order;
+            }
+            i += 1;
+        }
 
-    public Order findById(String id) { return null; }
+        orderData.add(order);
+        return order;
+    }
 
-    public List<Order> findAllByAuthor(String author) { return null; }
+    public Order findById(String id) {
+        for (Order savedorder : orderData) {
+            if (savedorder.getId().equals(id)) {
+                return savedorder;
+            }
+        }
+        return null;
+    }
+
+    public List<Order> findAllByAuthor(String author) {
+        List<Order> result = new ArrayList<>();
+        for (Order savedorder : orderData) {
+            if (savedorder.getAuthor().equals(author)) {
+                result.add(savedorder);
+            }
+        }
+        return result;
+    }
 }

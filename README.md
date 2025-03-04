@@ -82,3 +82,19 @@ Without DIP, it will increase challenges in creating unit tests because of high 
 make it hard to debug and maintain.
 
 </details>
+
+<details>
+<summary>Module 4</summary>
+
+## Tutorial Reflection
+TDD flow is useful as it helps me in creating cleaner code by maintaining separation of concern across my project. Furthermore, writing tests before implementing the functions can 
+help me in identifying errors or bugs. Also, creating variation of possible conditions/scenarios are necessary in order to validate the functionalities (edge cases).
+
+My tests have followed F.I.R.S.T principle. 
+Fast: Use mocks to avoid any external dependencies
+Independent: `@BeforeEach` in setUp initialize the product list with new product for each test
+Repeatable: Produce same results for any scenarios
+Self-validating: Clear assertion to identify fail/success 
+Timely: Cover all possibility of results and errors
+
+</details>

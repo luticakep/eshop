@@ -2,6 +2,7 @@ package id.ac.ui.cs.advprog.eshop.service;
 
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
+import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,17 @@ public class PaymentServiceTest {
 
     @BeforeEach
     void setUp() {
-        order = new Order("eb558e9f-1c39-460e-8860-71af6af63bd6", new ArrayList<>(), 0L, "Caplin");
+        List<Product> productList = new ArrayList<>();
+
+        // Create a dummy Product so products won't be empty
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(1);
+
+        productList.add(product);
+        order = new Order("13652556-012a-4c07-b546-54eb1396d79b", productList, 1708560000L, "Caplin");
+
         voucherData = new HashMap<>();
         voucherData.put("voucherCode", "ESHOP1234ABC5678");
 
@@ -91,10 +102,7 @@ public class PaymentServiceTest {
     @Test
     void testSetStatus_Rejected() {
         Payment existingPayment = new Payment("payment5", "Cash on delivery", codData);
-        // Payment was previously saved and is currently SUCCESS
-        doReturn(existingPayment).when(paymentRepository).findById("payment5");
 
-        // Now we set it to REJECTED
         paymentService.setStatus(existingPayment, "REJECTED");
         assertEquals("REJECTED", existingPayment.getStatus());
     }
